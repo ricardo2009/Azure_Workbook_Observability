@@ -2,131 +2,146 @@
   "version": "Notebook/1.0",
   "items": [
     {
-      "type": 1,
+      "type": 12,
       "content": {
-        "json": "\r\n<h1 style=\"color: #1379d2;\"> 🤖 Observability by Azure Workbook </h1>\r\n\r\n<ul>\r\n<li> This workbook is a collection of Azure Monitor queries and visualizations that provide a comprehensive view of your Azure resources. </li>\r\n\r\n\r\n<li> The workbook is designed to be used with the Azure Monitor Logs service. </li>\r\n</ul>\r\n\r\n\r\n\r\n"
-      },
-      "name": "text - 8"
-    },
-    {
-      "type": 9,
-      "content": {
-        "version": "KqlParameterItem/1.0",
-        "parameters": [
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
           {
-            "id": "199eea3c-8bcd-476b-9725-bd30f531678a",
-            "version": "KqlParameterItem/1.0",
-            "name": "Subscription",
-            "label": "Subscriptions",
-            "type": 6,
-            "isRequired": true,
-            "multiSelect": true,
-            "quote": "'",
-            "delimiter": ",",
-            "value": [
-              "/subscriptions/9e89ed1d-15d1-4667-912c-98a09e9e7d86"
-            ],
-            "typeSettings": {
-              "additionalResourceOptions": [
-                "value::all"
-              ],
-              "includeAll": true,
-              "showDefault": false
-            }
+            "type": 1,
+            "content": {
+              "json": "\r\n<h1 style=\"color: #1379d2;\"> 🤖 Observability by Azure Workbook </h1>\r\n\r\n<ul>\r\n<li> This workbook is a collection of Azure Monitor queries and visualizations that provide a comprehensive view of your Azure resources. </li>\r\n\r\n\r\n<li> The workbook is designed to be used with the Azure Monitor Logs service. </li>\r\n</ul>\r\n\r\n\r\n\r\n"
+            },
+            "customWidth": "70",
+            "name": "text - 8"
           },
           {
-            "id": "f41ba5f7-61b4-457e-8700-2e4e70d69264",
-            "version": "KqlParameterItem/1.0",
-            "name": "LogAnalyticsWorkspace",
-            "label": "Log Analytics Workspace",
-            "type": 5,
-            "isRequired": true,
-            "multiSelect": true,
-            "quote": "'",
-            "delimiter": ",",
-            "query": "where type =~ 'microsoft.operationalinsights/workspaces'\r\n| summarize by id, name\r\n| project id",
-            "crossComponentResources": [
-              "value::all"
-            ],
-            "typeSettings": {
-              "additionalResourceOptions": [
-                "value::all"
-              ],
-              "showDefault": false
-            },
-            "defaultValue": "value::all",
-            "queryType": 1,
-            "resourceType": "microsoft.resourcegraph/resources",
-            "value": [
-              "/subscriptions/9e89ed1d-15d1-4667-912c-98a09e9e7d86/resourceGroups/aro-arc-rg/providers/Microsoft.OperationalInsights/workspaces/log-arc-aro-domain"
-            ]
-          },
-          {
-            "id": "bd401b11-047b-4fa5-9a5d-6eef4d5195d4",
-            "version": "KqlParameterItem/1.0",
-            "name": "timerange",
-            "label": "Time Range",
-            "type": 4,
-            "value": {
-              "durationMs": 604800000
-            },
-            "typeSettings": {
-              "selectableValues": [
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "parameters": [
                 {
-                  "durationMs": 900000
+                  "id": "199eea3c-8bcd-476b-9725-bd30f531678a",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "Subscription",
+                  "label": "Subscriptions",
+                  "type": 6,
+                  "isRequired": true,
+                  "multiSelect": true,
+                  "quote": "'",
+                  "delimiter": ",",
+                  "value": [
+                    "value::all"
+                  ],
+                  "typeSettings": {
+                    "additionalResourceOptions": [
+                      "value::all"
+                    ],
+                    "includeAll": true,
+                    "showDefault": false
+                  }
                 },
                 {
-                  "durationMs": 1800000
+                  "id": "f41ba5f7-61b4-457e-8700-2e4e70d69264",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "LogAnalyticsWorkspace",
+                  "label": "Log Analytics Workspace",
+                  "type": 5,
+                  "isRequired": true,
+                  "multiSelect": true,
+                  "quote": "'",
+                  "delimiter": ",",
+                  "query": "where type =~ 'microsoft.operationalinsights/workspaces'\r\n| summarize by id, name\r\n| project id",
+                  "crossComponentResources": [
+                    "value::all"
+                  ],
+                  "typeSettings": {
+                    "additionalResourceOptions": [
+                      "value::all"
+                    ],
+                    "showDefault": false
+                  },
+                  "defaultValue": "value::all",
+                  "queryType": 1,
+                  "resourceType": "microsoft.resourcegraph/resources"
                 },
                 {
-                  "durationMs": 3600000
+                  "id": "bd401b11-047b-4fa5-9a5d-6eef4d5195d4",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "timerange",
+                  "label": "Time Range",
+                  "type": 4,
+                  "value": {
+                    "durationMs": 86400000
+                  },
+                  "typeSettings": {
+                    "selectableValues": [
+                      {
+                        "durationMs": 900000
+                      },
+                      {
+                        "durationMs": 1800000
+                      },
+                      {
+                        "durationMs": 3600000
+                      },
+                      {
+                        "durationMs": 14400000
+                      },
+                      {
+                        "durationMs": 43200000
+                      },
+                      {
+                        "durationMs": 86400000
+                      },
+                      {
+                        "durationMs": 259200000
+                      },
+                      {
+                        "durationMs": 604800000
+                      },
+                      {
+                        "durationMs": 1209600000
+                      },
+                      {
+                        "durationMs": 2419200000
+                      },
+                      {
+                        "durationMs": 2592000000
+                      },
+                      {
+                        "durationMs": 5184000000
+                      },
+                      {
+                        "durationMs": 7776000000
+                      }
+                    ]
+                  }
                 },
                 {
-                  "durationMs": 14400000
-                },
-                {
-                  "durationMs": 43200000
-                },
-                {
-                  "durationMs": 86400000
-                },
-                {
-                  "durationMs": 259200000
-                },
-                {
-                  "durationMs": 604800000
-                },
-                {
-                  "durationMs": 1209600000
-                },
-                {
-                  "durationMs": 2419200000
-                },
-                {
-                  "durationMs": 2592000000
-                },
-                {
-                  "durationMs": 5184000000
-                },
-                {
-                  "durationMs": 7776000000
+                  "id": "f3a9fee7-3c74-419a-8c60-5587da42bde1",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "Help",
+                  "label": "Show Help",
+                  "type": 10,
+                  "isRequired": true,
+                  "typeSettings": {
+                    "additionalResourceOptions": []
+                  },
+                  "jsonData": "[{ \"value\": \"true\", \"label\": \"Yes\"}, { \"value\": \"false\", \"label\": \"No\", \"selected\":true }]"
                 }
-              ]
-            }
+              ],
+              "style": "formVertical",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces"
+            },
+            "customWidth": "30",
+            "name": "parameters - 0"
           }
         ],
-        "style": "formVertical",
-        "queryType": 0,
-        "resourceType": "microsoft.operationalinsights/workspaces"
+        "exportParameters": true
       },
-      "name": "parameters - 0"
-    },
-    {
-      "type": 1,
-      "content": {
-        "json": "<BR>"
-      },
-      "name": "text - 11"
+      "name": "Header"
     },
     {
       "type": 11,
@@ -577,6 +592,11 @@
               "json": "## Azure Compute\r\n<BR>\r\nAzure offers a number of ways to host your application code. The term compute refers to the hosting model for the computing resources that your application runs on. A complete solution may incorporate two or more compute services.\r\n<br>\r\nMore details on: [Choose an Azure compute service for your application](https://docs.microsoft.com/en-us/azure/architecture/guide/technology-choices/compute-decision-tree)\r\n<BR>\r\n",
               "style": "info"
             },
+            "conditionalVisibility": {
+              "parameterName": "Help",
+              "comparison": "isEqualTo",
+              "value": "true"
+            },
             "name": "text - 4"
           },
           {
@@ -636,13 +656,6 @@
               ]
             },
             "name": "links - 2"
-          },
-          {
-            "type": 1,
-            "content": {
-              "json": "<BR>"
-            },
-            "name": "text - 5"
           },
           {
             "type": 12,
@@ -4531,7 +4544,75 @@
                           "resourceType": "microsoft.resourcegraph/resources",
                           "crossComponentResources": [
                             "value::all"
-                          ]
+                          ],
+                          "gridSettings": {
+                            "formatters": [
+                              {
+                                "columnMatch": "nodepoolName",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "maxnode",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "minnode",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "maxpod",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "currentnodepool",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "TriggerdownTime",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "dowdelayfailure",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "dowdelaydelete",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "Unreadypercentage",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "maxgracefusec",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "skipnodesystem",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "balancenodegroups",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "unreadytotal",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "bulkdelete",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "scaninterval",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "expander",
+                                "formatter": 5
+                              }
+                            ]
+                          }
                         },
                         "customWidth": "100",
                         "name": "query - 0 - Cópia",
@@ -10832,13 +10913,6 @@
                   "name": "links - 2"
                 },
                 {
-                  "type": 1,
-                  "content": {
-                    "json": "<br>"
-                  },
-                  "name": "text - 2"
-                },
-                {
                   "type": 12,
                   "content": {
                     "version": "NotebookGroup/1.0",
@@ -11209,7 +11283,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL\r\n| summarize count() by apiVersion_s\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "showAnalytics": true,
                                 "title": "Contagem de eventos por API Version",
                                 "timeContextFromParameter": "timerange",
@@ -11330,7 +11404,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL\r\n| extend requestObject_action_s\r\n| summarize Eventos = count() by requestObject_action_s\r\n| sort by Eventos desc",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por ação",
                                 "noDataMessage": "Nenhum dado encontrado.",
                                 "timeContextFromParameter": "timerange",
@@ -11396,7 +11470,8 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL\r\n| summarize count() by user_username_s\r\n| sort by count_ desc",
-                                "size": 0,
+                                "size": 1,
+                                "showAnalytics": true,
                                 "title": "Contagem de eventos por usuário",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11419,7 +11494,7 @@
                                     },
                                     {
                                       "columnMatch": "count_",
-                                      "formatter": 3,
+                                      "formatter": 8,
                                       "formatOptions": {
                                         "palette": "greenRed",
                                         "linkColumn": "count_",
@@ -11430,6 +11505,17 @@
                                           "columnSettings": []
                                         }
                                       }
+                                    }
+                                  ],
+                                  "filter": true,
+                                  "labelSettings": [
+                                    {
+                                      "columnId": "user_username_s",
+                                      "label": "Usuário"
+                                    },
+                                    {
+                                      "columnId": "count_",
+                                      "label": "Eventos"
                                     }
                                   ]
                                 },
@@ -11488,14 +11574,14 @@
                                 }
                               },
                               "customWidth": "40",
-                              "name": "query - 14"
+                              "name": "Events by User"
                             },
                             {
                               "type": 3,
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by tostring(responseObject_status_error_s) \r\n| sort by count_ desc\r\n\r\n\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por status do objeto de resposta",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11563,7 +11649,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL\r\n| where isnotempty(objectRef_resource_s)\r\n| summarize count() by objectRef_resource_s\r\n| sort by count_ desc\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por tipo de objeto referenciado",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11616,7 +11702,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by objectRef_resource_s, stage_s\r\n\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por tipo de objeto referenciado e status",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11633,7 +11719,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by kind_s \r\n| sort by count_ desc\r\n| project kind_s, count_\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por tipo de objeto envolvido",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11685,7 +11771,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| extend namespace=requestObject_propagationPolicy_s\r\n| summarize count() by namespace, verb_s \r\n| order by count_ desc\r\n\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Contagem de eventos por tipo de objeto referenciado e ação",
                                 "timeContextFromParameter": "timerange",
                                 "showExportToExcel": true,
@@ -11764,7 +11850,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| where verb_s != \"CONNECT\" and verb_s != \"WATCH\" and user_username_s != \"\" \r\n| project user_username = user_username_s, service = requestURI_s, timestamp = _timestamp_d, action = verb_s \r\n| sort by user_username asc, timestamp asc\r\n\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Visão de ações por usuário em serviços e horários específicos",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11898,7 +11984,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| where stage_s != \"Metadata\"\r\n| summarize count() by userAgent_s, stage_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart with (title=\"Número de chamadas por usuário e serviço a cada hora\")",
-                                "size": 0,
+                                "size": 1,
                                 "aggregation": 3,
                                 "showAnalytics": true,
                                 "title": "Número de chamadas por usuário e serviço",
@@ -11916,6 +12002,7 @@
                                 ],
                                 "visualization": "barchart"
                               },
+                              "customWidth": "50",
                               "showPin": false,
                               "name": "Número de chamadas por usuário e serviço"
                             },
@@ -11924,7 +12011,8 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by requestObject_metadata_labels_controller_kubernetes_io_hash_s, requestObject_metadata_labels_app_kubernetes_io_version_s, requestObject_metadata_labels_app_kubernetes_io_part_of_s, requestObject_metadata_labels_app_kubernetes_io_name_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart with (title=\"Número de chamadas por controller hash, app version, app part e app name a cada hora\")",
-                                "size": 0,
+                                "size": 1,
+                                "showAnnotations": true,
                                 "title": "Número de chamadas por controller hash, app version, app part e app name",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -11934,6 +12022,7 @@
                                 ],
                                 "visualization": "timechart"
                               },
+                              "customWidth": "50",
                               "name": "Número de chamadas por controller hash, app version, app part e app name"
                             },
                             {
@@ -11941,7 +12030,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by requestObject_metadata_labels_alertmanager_s, requestObject_metadata_labels_app_kubernetes_io_name_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart with (title=\"Número de chamadas por alertmanager e app name a cada hora\")",
-                                "size": 0,
+                                "size": 1,
                                 "aggregation": 3,
                                 "showAnalytics": true,
                                 "title": "Número de chamadas por alertmanager e app name",
@@ -11972,6 +12061,7 @@
                                   "showBorder": false
                                 }
                               },
+                              "customWidth": "50",
                               "name": "Kubernetes Audit Logs"
                             },
                             {
@@ -11979,7 +12069,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by objectRef_resource_s, objectRef_namespace_s, objectRef_name_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart with (title=\"Número de chamadas por recurso, namespace e nome a cada hora\")\r\n",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Número de chamadas por alertmanager e app name",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -12001,6 +12091,7 @@
                                   ]
                                 }
                               },
+                              "customWidth": "50",
                               "name": "query - 1"
                             },
                             {
@@ -12008,7 +12099,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by objectRef_resource_s, objectRef_namespace_s, objectRef_name_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart ",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Número de chamadas por recurso, namespace e nome",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -12033,6 +12124,7 @@
                                   }
                                 }
                               },
+                              "customWidth": "50",
                               "name": "query - 28"
                             },
                             {
@@ -12040,7 +12132,7 @@
                               "content": {
                                 "version": "KqlItem/1.0",
                                 "query": "AuditOpenshift_CL \r\n| summarize count() by impersonatedUser_username_s, bin(stageTimestamp_t, 1h)\r\n| render columnchart",
-                                "size": 0,
+                                "size": 1,
                                 "title": "Número de chamadas por usuário impessoal",
                                 "timeContextFromParameter": "timerange",
                                 "queryType": 0,
@@ -12062,6 +12154,7 @@
                                   ]
                                 }
                               },
+                              "customWidth": "50",
                               "name": "query - 30"
                             }
                           ]
@@ -22104,6 +22197,495 @@
         "value": "AppService"
       },
       "name": "AppService"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 11,
+            "content": {
+              "version": "LinkItem/1.0",
+              "style": "toolbar",
+              "links": [
+                {
+                  "id": "d80ce600-b288-4267-93cb-a01223365415",
+                  "cellValue": "TabMain",
+                  "linkTarget": "parameter",
+                  "linkLabel": "Microsoft Defender ",
+                  "subTarget": "Defender",
+                  "postText": "Microsoft Defender for cloud",
+                  "style": "link",
+                  "icon": "Defense Evasion"
+                },
+                {
+                  "id": "f8592a17-308d-4e87-84ef-db28bf73278c",
+                  "cellValue": "TabMain",
+                  "linkTarget": "parameter",
+                  "linkLabel": "Microsoft Sentinal",
+                  "subTarget": "Sentinal",
+                  "postText": "Microsoft Sentinal",
+                  "style": "link",
+                  "icon": "Pre attack"
+                }
+              ]
+            },
+            "name": "links - 3",
+            "styleSettings": {
+              "margin": "10px",
+              "padding": "10px",
+              "showBorder": true
+            }
+          },
+          {
+            "type": 11,
+            "content": {
+              "version": "LinkItem/1.0",
+              "style": "tabs",
+              "links": [
+                {
+                  "id": "69bf1231-0ff5-42ae-bf9a-2e62b0a210cb",
+                  "cellValue": "TabMain",
+                  "linkTarget": "parameter",
+                  "linkLabel": " Defender - Eventos ",
+                  "subTarget": "Eventos",
+                  "postText": " Defender - Eventos ",
+                  "style": "link",
+                  "icon": "Persistence"
+                }
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "TabMain",
+              "comparison": "isEqualTo",
+              "value": "Defender"
+            },
+            "name": "submain-security",
+            "styleSettings": {
+              "margin": "10px",
+              "padding": "10px",
+              "showBorder": true
+            }
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "items": [
+                {
+                  "type": 1,
+                  "content": {
+                    "json": "## Active security recommendations per subscription and cloud environment\r\n\r\nThis workbook leverages *First Evaluation Date* and *Status Change Date* time indicators to show active security recommendations created by Defender for Cloud, including the active time in days. It allows to filter for subscriptions, recommendation severity, and cloud environment, to narrow down results to the scope relevant for your examination.\r\n\r\nTo learn more about time indicators in Defender for Cloud, read [this article](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/time-indicators-in-microsoft-defender-for-cloud-assessments/ba-p/2343612)."
+                  },
+                  "name": "text - 2"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "crossComponentResources": [
+                      "{subscriptions}"
+                    ],
+                    "parameters": [
+                      {
+                        "id": "9d81f11a-6c64-4748-b477-dfe5e417ec18",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "severity",
+                        "label": "Severity",
+                        "type": 2,
+                        "description": "Select the recommendation severity",
+                        "isRequired": true,
+                        "multiSelect": true,
+                        "quote": "'",
+                        "delimiter": ",",
+                        "typeSettings": {
+                          "additionalResourceOptions": [
+                            "value::all"
+                          ],
+                          "showDefault": false
+                        },
+                        "jsonData": "[\n { \"value\": \"High\", \"label\": \"High\"},\n { \"value\": \"Medium\", \"label\": \"Medium\"},\n { \"value\": \"Low\", \"label\": \"Low\"}\n]",
+                        "defaultValue": "value::all",
+                        "value": [
+                          "value::all"
+                        ]
+                      },
+                      {
+                        "id": "a34fbec0-b40a-4cf2-9124-430bb6d6bd76",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "environment",
+                        "label": "Cloud environment",
+                        "type": 2,
+                        "description": "Select the cloud environment",
+                        "isRequired": true,
+                        "multiSelect": true,
+                        "quote": "'",
+                        "delimiter": ",",
+                        "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| project environment = tostring(properties.resourceDetails.Source)\n| distinct environment",
+                        "crossComponentResources": [
+                          "{subscriptions}"
+                        ],
+                        "typeSettings": {
+                          "additionalResourceOptions": [
+                            "value::all"
+                          ],
+                          "showDefault": false
+                        },
+                        "defaultValue": "value::all",
+                        "queryType": 1,
+                        "resourceType": "microsoft.resourcegraph/resources"
+                      },
+                      {
+                        "id": "fb25118f-8331-4368-b6ab-a2393d748e08",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "info",
+                        "label": "Additional information",
+                        "type": 10,
+                        "description": "Show additional information for this workbook",
+                        "isRequired": true,
+                        "value": "On",
+                        "typeSettings": {
+                          "additionalResourceOptions": []
+                        },
+                        "jsonData": "[\n { \"value\": \"On\", \"label\": \"On\"},\n { \"value\": \"Off\", \"label\": \"Off\"}\n]"
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 1,
+                    "resourceType": "microsoft.resourcegraph/resources"
+                  },
+                  "name": "parameters - 0"
+                },
+                {
+                  "type": 1,
+                  "content": {
+                    "json": "## How to use the parameters\r\n\r\n|Parameter|Description|\r\n|---|---|---|\r\n| Subscription(s) | Select one, several, or all subscriptions in your environment. The workbook will use this filter to display security recommendations according to the selected scope. |\r\n| Severity | Security recommendations are divided into low, medium, and high severity. Select any combination of severities you want to display in this workbook. |\r\n| Environment | Defender for Cloud offers Cloud Security Posture Management (CSPM) for Azure, AWS, and GCP. With this filter, you can select any combination of cloud platforms to show active (unhealthy) recommendations for. |\r\n| Additional information | Shows additional information about this workbook. |\r\n\r\n## Release notes\r\n\r\n|Version|Description|Date|\r\n|---|---|---|\r\n|v1.0|initial release|02/13/2023|\r\n|v1.1|updating the cloud environment filter to only offer existing environments for selection.|03/16/2023|"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "info",
+                    "comparison": "isEqualTo",
+                    "value": "On"
+                  },
+                  "name": "releaseNotes"
+                },
+                {
+                  "type": 12,
+                  "content": {
+                    "version": "NotebookGroup/1.0",
+                    "groupType": "editable",
+                    "items": [
+                      {
+                        "type": 3,
+                        "content": {
+                          "version": "KqlItem/1.0",
+                          "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| extend firstEvaluationDate = todatetime(properties.status.firstEvaluationDate), statusChangeDate = todatetime(properties.status.statusChangeDate), severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project subscriptionId, resourceGroup,\n    resourceId = properties.resourceDetails.Id,\n    source = tostring(properties.resourceDetails.Source),\n    displayName = properties.displayName, \n    statusCode = properties.status.code,\n    severity, severityFilter, environmentFilter,\n    statusChangeDate, firstEvaluationDate,\n    overduePeriod = datetime_diff(\"day\", now(), statusChangeDate)\n| where severityFilter has severity and environmentFilter has source",
+                          "size": 1,
+                          "queryType": 1,
+                          "resourceType": "microsoft.resourcegraph/resources",
+                          "crossComponentResources": [
+                            "{subscriptions}"
+                          ],
+                          "gridSettings": {
+                            "formatters": [
+                              {
+                                "columnMatch": "subscriptionId",
+                                "formatter": 15,
+                                "formatOptions": {
+                                  "linkTarget": null,
+                                  "showIcon": true
+                                }
+                              },
+                              {
+                                "columnMatch": "Group",
+                                "formatter": 1
+                              }
+                            ],
+                            "rowLimit": 10000
+                          }
+                        },
+                        "conditionalVisibility": {
+                          "parameterName": "blank",
+                          "comparison": "isNotEqualTo"
+                        },
+                        "name": "activeRecommendations-query"
+                      },
+                      {
+                        "type": 3,
+                        "content": {
+                          "version": "KqlItem/1.0",
+                          "query": "securityresources\n| where type =~ \"microsoft.security/assessments\"\n| extend severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project severity, severityFilter, id, statusCode = properties.status.code, environment = tostring(properties.resourceDetails.Source), environmentFilter\n| where severityFilter has severity and environmentFilter has environment\n| summarize recommendations = dcount(id) by tostring(statusCode)",
+                          "size": 3,
+                          "title": "Total amount of recommendations by status",
+                          "queryType": 1,
+                          "resourceType": "microsoft.resourcegraph/resources",
+                          "crossComponentResources": [
+                            "{subscriptions}"
+                          ],
+                          "visualization": "piechart",
+                          "chartSettings": {
+                            "seriesLabelSettings": [
+                              {
+                                "seriesName": "NotApplicable",
+                                "label": "Not applicable",
+                                "color": "gray"
+                              },
+                              {
+                                "seriesName": "Unhealthy",
+                                "label": "",
+                                "color": "redBright"
+                              },
+                              {
+                                "seriesName": "Healthy",
+                                "color": "green"
+                              }
+                            ]
+                          }
+                        },
+                        "customWidth": "33",
+                        "name": "total recommendations - query"
+                      },
+                      {
+                        "type": 3,
+                        "content": {
+                          "version": "KqlItem/1.0",
+                          "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| extend severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project severity, severityFilter, id, environmentFilter, environment = tostring(properties.resourceDetails.Source)\n| where severityFilter has severity and environmentFilter has environment\n| summarize recommendations = dcount(id) by severity",
+                          "size": 3,
+                          "title": "Amount of unhealthy recommendations by severity",
+                          "queryType": 1,
+                          "resourceType": "microsoft.resourcegraph/resources",
+                          "crossComponentResources": [
+                            "{subscriptions}"
+                          ],
+                          "visualization": "piechart",
+                          "chartSettings": {
+                            "seriesLabelSettings": [
+                              {
+                                "seriesName": "Low",
+                                "color": "yellow"
+                              },
+                              {
+                                "seriesName": "Medium",
+                                "color": "orange"
+                              },
+                              {
+                                "seriesName": "High",
+                                "color": "redBright"
+                              }
+                            ]
+                          }
+                        },
+                        "customWidth": "33",
+                        "name": "active recommendations - query"
+                      },
+                      {
+                        "type": 3,
+                        "content": {
+                          "version": "KqlItem/1.0",
+                          "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\",\"mergeType\":\"table\",\"leftTable\":\"activeRecommendations-query\"}],\"projectRename\":[{\"originalName\":\"[activeRecommendations-query].subscriptionId\",\"mergedName\":\"subscriptionId\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].resourceGroup\",\"mergedName\":\"resourceGroup\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].resourceId\",\"mergedName\":\"resourceId\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].source\",\"mergedName\":\"source\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].displayName\",\"mergedName\":\"displayName\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].statusCode\",\"mergedName\":\"statusCode\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].severity\",\"mergedName\":\"severity\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].firstEvaluationDate\",\"mergedName\":\"firstEvaluationDate\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].statusChangeDate\",\"mergedName\":\"statusChangeDate\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].overduePeriod\",\"mergedName\":\"overduePeriod\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"Total active recommendations\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"static\",\"resultVal\":\"Total active recommendations\"}}]},{\"originalName\":\"[activeRecommendations-query].severityFilter\",\"mergedName\":\"severityFilter\",\"fromId\":\"unknown\"},{\"originalName\":\"[activeRecommendations-query].environmentFilter\",\"mergedName\":\"environmentFilter\",\"fromId\":\"unknown\"},{\"originalName\":\"[activeRecommendations-query].environment\",\"mergedName\":\"environment\",\"fromId\":\"unknown\"}]}",
+                          "size": 0,
+                          "title": "Active security recommendations",
+                          "queryType": 7,
+                          "gridSettings": {
+                            "formatters": [
+                              {
+                                "columnMatch": "$gen_group",
+                                "formatter": 15,
+                                "formatOptions": {
+                                  "linkTarget": "Resource",
+                                  "showIcon": true,
+                                  "customColumnWidthSetting": "51ch"
+                                }
+                              },
+                              {
+                                "columnMatch": "Subscription",
+                                "formatter": 15,
+                                "formatOptions": {
+                                  "linkTarget": "Resource",
+                                  "showIcon": true,
+                                  "customColumnWidthSetting": "51ch"
+                                }
+                              },
+                              {
+                                "columnMatch": "subscriptionId",
+                                "formatter": 5,
+                                "formatOptions": {
+                                  "linkTarget": "Resource"
+                                }
+                              },
+                              {
+                                "columnMatch": "resourceGroup",
+                                "formatter": 14,
+                                "formatOptions": {
+                                  "linkTarget": "Resource",
+                                  "showIcon": true
+                                }
+                              },
+                              {
+                                "columnMatch": "resourceId",
+                                "formatter": 13,
+                                "formatOptions": {
+                                  "linkTarget": "Resource",
+                                  "showIcon": true
+                                }
+                              },
+                              {
+                                "columnMatch": "source",
+                                "formatter": 1
+                              },
+                              {
+                                "columnMatch": "displayName",
+                                "formatter": 1
+                              },
+                              {
+                                "columnMatch": "statusCode",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "severity",
+                                "formatter": 18,
+                                "formatOptions": {
+                                  "thresholdsOptions": "colors",
+                                  "thresholdsGrid": [
+                                    {
+                                      "operator": "==",
+                                      "thresholdValue": "High",
+                                      "representation": "redBright",
+                                      "text": "{0}{1}"
+                                    },
+                                    {
+                                      "operator": "==",
+                                      "thresholdValue": "Medium",
+                                      "representation": "orange",
+                                      "text": "{0}{1}"
+                                    },
+                                    {
+                                      "operator": "==",
+                                      "thresholdValue": "Low",
+                                      "representation": "yellow",
+                                      "text": "{0}{1}"
+                                    },
+                                    {
+                                      "operator": "Default",
+                                      "thresholdValue": null,
+                                      "text": "{0}{1}"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "columnMatch": "firstEvaluationDate",
+                                "formatter": 6
+                              },
+                              {
+                                "columnMatch": "statusChangeDate",
+                                "formatter": 6
+                              },
+                              {
+                                "columnMatch": "overduePeriod",
+                                "formatter": 8,
+                                "formatOptions": {
+                                  "min": 0,
+                                  "max": 30,
+                                  "palette": "greenRed"
+                                },
+                                "numberFormat": {
+                                  "unit": 0,
+                                  "options": {
+                                    "style": "decimal",
+                                    "useGrouping": false,
+                                    "maximumFractionDigits": 0
+                                  }
+                                }
+                              },
+                              {
+                                "columnMatch": "Total active recommendations",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "severityFilter",
+                                "formatter": 5
+                              },
+                              {
+                                "columnMatch": "environmentFilter",
+                                "formatter": 5
+                              }
+                            ],
+                            "rowLimit": 10000,
+                            "filter": true,
+                            "hierarchySettings": {
+                              "treeType": 1,
+                              "groupBy": [
+                                "Total active recommendations",
+                                "subscriptionId"
+                              ],
+                              "expandTopLevel": true
+                            },
+                            "labelSettings": [
+                              {
+                                "columnId": "resourceGroup",
+                                "label": "Resource Group"
+                              },
+                              {
+                                "columnId": "resourceId",
+                                "label": "Affected Resource"
+                              },
+                              {
+                                "columnId": "source",
+                                "label": "Cloud Environment"
+                              },
+                              {
+                                "columnId": "displayName",
+                                "label": "Recommendation Name"
+                              },
+                              {
+                                "columnId": "statusCode",
+                                "label": "Status"
+                              },
+                              {
+                                "columnId": "severity",
+                                "label": "Severity"
+                              },
+                              {
+                                "columnId": "firstEvaluationDate",
+                                "label": "First Evaluation Date"
+                              },
+                              {
+                                "columnId": "statusChangeDate",
+                                "label": "Status Change Date"
+                              },
+                              {
+                                "columnId": "overduePeriod",
+                                "label": "Unhealthy for [days]"
+                              },
+                              {
+                                "columnId": "Total active recommendations",
+                                "label": "Subscription"
+                              }
+                            ]
+                          }
+                        },
+                        "showPin": false,
+                        "name": "activeRecommendations-merge"
+                      }
+                    ]
+                  },
+                  "name": "Active recommendations group"
+                }
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "TabMain",
+              "comparison": "isEqualTo",
+              "value": "Eventos"
+            },
+            "name": "Security group"
+          }
+        ]
+      },
+      "name": "group - 11"
     }
   ],
   "fallbackResourceIds": [
