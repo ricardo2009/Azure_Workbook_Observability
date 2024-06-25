@@ -72,7 +72,7 @@
                   "label": "Time Range",
                   "type": 4,
                   "value": {
-                    "durationMs": 86400000
+                    "durationMs": 900000
                   },
                   "typeSettings": {
                     "selectableValues": [
@@ -218,26 +218,6 @@
             "postText": "Azure Security Resources",
             "style": "link",
             "icon": "Lock"
-          },
-          {
-            "id": "dc85b815-0d7s-4f7a-b933-127263f6b7f5",
-            "cellValue": "TabMain",
-            "linkTarget": "parameter",
-            "linkLabel": "Cost",
-            "subTarget": "Cost",
-            "postText": "Azure Cost Resources",
-            "style": "link",
-            "icon": "SmileyHappy"
-          },
-          {
-            "id": "dc85b815-0d7d-4f7a-b933-127263f6b7f5",
-            "cellValue": "TabMain",
-            "linkTarget": "parameter",
-            "linkLabel": "Well Architected",
-            "subTarget": "Well Architected",
-            "postText": "Azure Well Architected Compliance",
-            "style": "link",
-            "icon": "Diagnostics"
           }
         ]
       },
@@ -2698,7 +2678,7 @@
                       {
                         "type": 1,
                         "content": {
-                          "json": "<br>\r\n## Kubernetes clusters\r\n<br>\r\nFor more information access: [Azure Kubernetes Cluster Architecture](https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads#kubernetes-cluster-architecture)\r\n<br>"
+                          "json": "<br>\r\n<h2>Kubernetes Clusters</h2>\r\n<br>\r\n<p>Este item fornece uma visão geral dos clusters Kubernetes gerenciados no Azure. Ele inclui um link para a arquitetura do Azure Kubernetes Cluster, que oferece informações detalhadas sobre a configuração, gerenciamento e otimização de clusters Kubernetes.</p>\r\n<p>A descrição destina-se a orientar os usuários na navegação e compreensão dos recursos e práticas recomendadas para a implementação eficiente de clusters Kubernetes no ambiente de nuvem do Azure.</p>\r\n<br>\r\n<h3>Detalhes Importantes:</h3>\r\n<ul>\r\n<li><strong>Arquitetura e Design</strong>: Fornece diretrizes sobre como estruturar e projetar clusters para atender aos requisitos de desempenho e escalabilidade.</li>\r\n<li><strong>Gerenciamento de Recursos</strong>: Explica como gerenciar recursos de cluster, incluindo nós, pods e serviços.</li>\r\n<li><strong>Segurança e Conformidade</strong>: Aborda as práticas recomendadas de segurança para proteger o cluster e manter a conformidade com os padrões do setor.</li>\r\n<li><strong>Monitoramento e Diagnóstico</strong>: Descreve as ferramentas e técnicas para monitorar a saúde do cluster e diagnosticar problemas.</li>\r\n</ul>\r\n<br>\r\n<p>Para mais informações, acesse: <a href='https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aks/aks-overview' target='_blank'>Azure Kubernetes Cluster Architecture</a></p>"
                         },
                         "name": "text - 0"
                       },
@@ -2706,7 +2686,7 @@
                         "type": 3,
                         "content": {
                           "version": "KqlItem/1.0",
-                          "query": "resources\r\n| where type == \"microsoft.containerservice/managedclusters\"\r\n| mv-expand dr = properties.agentPoolProfiles\r\n| summarize  sum(toint(dr.[\"count\"])) by name",
+                          "query": "resources\r\n| where type == \"microsoft.containerservice/managedclusters\"\r\n| mv-expand dr = properties.agentPoolProfiles\r\n| summarize sum(toint(dr.[\"count\"])) by name",
                           "size": 0,
                           "title": "Nodes per Cluster",
                           "queryType": 1,
@@ -2794,7 +2774,7 @@
                         "type": 3,
                         "content": {
                           "version": "KqlItem/1.0",
-                          "query": "resources\r\n| where type == \"microsoft.containerservice/managedclusters\"\r\n| mv-expand dr = properties.agentPoolProfiles\r\n| extend AppR = iif(properties.addonProfiles.httpapplicationrouting.enabled == 'true','true','false'),\r\n        VNET = split(dr.vnetSubnetID,'/'),\r\n        Scalle = iif(dr.enableAutoScaling == 'true','true','false'),\r\n        priv = iif(properties.apiServerAccessProfile.enablePrivateCluster == 'true','true','false'),\r\n        insight = iif(properties.addonProfiles.omsagent.enabled == 'true','true','false'),\r\n        ingress = iif(properties.addonProfiles.ingressApplicationGateway.enabled == 'true','true','false'),\r\n        pupip = iif(dr.enableNodePublicIP == 'true','true','false')\r\n| project [\"Resource Group\"]=resourceGroup,\r\n[\"Cluster Name\"]=id,\r\n[\"Location\"]=location,\r\n[\"Uptime SLA\"]=sku.tier,\r\n[\"Kubernetes Version\"]=properties.kubernetesVersion,\r\n[\"Private Cluster\"]=priv,\r\n[\"Container Insights\"]=insight,\r\n//[\"Outbound Type\"]=properties.networkProfile.outboundType,\r\n//[\"Docker Pod Cidr\"]=properties.networkProfile.podCidr,\r\n//[\"Service Cidr\"]=properties.networkProfile.serviceCidr,\r\n//[\"Docker Bridge Cidr\"]=properties.networkProfile.dockerBridgeCidr,\r\n//[\"Network DNS Service IP\"]=properties.networkProfile.dnsServiceIP,\r\n//[\"FQDN\"]=properties.fqdn,\r\n//[\"HTTP Application Routing\"]=AppR,\r\n//[\"Ingress Controller\"]=ingress,\r\n[\"Node Pool Name\"]=dr.name,\r\n[\"Max Pods\"]=dr.maxPods,\r\n[\"Pool Profile Type\"]=dr.type,\r\n[\"Pool Mode\"]=dr.mode,\r\n[\"Pool OS\"]=dr.osType,\r\n[\"Node Size\"]=dr.vmSize,\r\n//[\"OS Disk Size (GB)\"]=dr.osDiskSizeGB,\r\n[\"Nodes\"]=dr.[\"count\"],\r\n[\"Auto Scalling\"]=Scalle,\r\n[\"Min Nodes\"]=dr.minCount,\r\n[\"Max Nodes\"]=dr.maxCount,\r\n[\"Virtual Network\"]=VNET[8],\r\n[\"VNET Subnet\"]=VNET[10],\r\n[\"Orchestrator Version\"]=dr.orchestratorVersion,\r\n[\"Enable Node Public IP\"]=pupip",
+                          "query": "resources\r\n| where type == \"microsoft.containerservice/managedclusters\"\r\n| mv-expand dr = properties.agentPoolProfiles\r\n| extend AppR = iif(properties.addonProfiles.httpapplicationrouting.enabled == 'true','true','false'),\r\n        VNET = split(dr.vnetSubnetID,'/'),\r\n        Scalle = iif(dr.enableAutoScaling == 'true','true','false'),\r\n        priv = iif(properties.apiServerAccessProfile.enablePrivateCluster == 'true','true','false'),\r\n        insight = iif(properties.addonProfiles.omsagent.enabled == 'true','true','false'),\r\n        ingress = iif(properties.addonProfiles.ingressApplicationGateway.enabled == 'true','true','false'),\r\n        pupip = iif(dr.enableNodePublicIP == 'true','true','false'),\r\n        enableAvailabilityZones = iif(isnotnull(dr.availabilityZones), 'Habilitado', 'Desabilitado'),\r\n        availabilityZones = tostring(dr.availabilityZones)\r\n| project [\"Resource Group\"]=resourceGroup,\r\n[\"Cluster Name\"]=split(id,'/')[8],\r\n[\"Node Pool Name\"]=dr.name,\r\n[\"Location\"]=location,\r\n[\"Uptime SLA\"]=sku.tier,\r\n[\"Kubernetes Version\"]=properties.kubernetesVersion,\r\n[\"Orchestrator Version\"]=dr.orchestratorVersion,\r\n[\"Private Cluster\"]=priv,\r\n[\"Container Insights\"]=insight,\r\n[\"Auto Scalling\"]=Scalle,\r\n[\"Availability Zones Enabled\"]=enableAvailabilityZones,\r\n[\"Availability Zones\"]=availabilityZones,\r\n[\"Nodes\"]=dr.[\"count\"],\r\n[\"Min Nodes\"]=dr.minCount,\r\n[\"Max Nodes\"]=dr.maxCount,\r\n[\"Max Pods\"]=dr.maxPods,\r\n[\"Pool Profile Type\"]=dr.type,\r\n[\"Pool Mode\"]=dr.mode,\r\n[\"Pool OS\"]=dr.osType,\r\n[\"Node Size\"]=dr.vmSize,\r\n[\"OS Disk Size (GB)\"]=dr.osDiskSizeGB,\r\n[\"Virtual Network\"]=VNET[8],\r\n[\"VNET Subnet\"]=VNET[10],\r\n[\"Enable Node Public IP\"]=pupip,\r\n[\"Outbound Type\"]=properties.networkProfile.outboundType,\r\n[\"Network Plugin\"]=properties.networkProfile.networkPlugin,\r\n[\"Service Cidr\"]=properties.networkProfile.serviceCidr,\r\n[\"Network DNS Service IP\"]=properties.networkProfile.dnsServiceIP,\r\n[\"FQDN\"]=properties.fqdn,\r\n[\"HTTP Application Routing\"]=AppR,\r\n[\"Ingress Controller\"]=ingress",
                           "size": 2,
                           "title": "Kubernetes Clusters",
                           "showExportToExcel": true,
@@ -2844,121 +2824,34 @@
                                   "thresholdsOptions": "colors",
                                   "thresholdsGrid": [
                                     {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.24",
-                                      "representation": "green",
+                                      "operator": "<",
+                                      "thresholdValue": "1.25",
+                                      "representation": "redBright",
                                       "text": "{0}{1}"
                                     },
                                     {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.23",
+                                      "operator": "<",
+                                      "thresholdValue": "1.26",
+                                      "representation": "red",
+                                      "text": "{0}{1}"
+                                    },
+                                    {
+                                      "operator": "<",
+                                      "thresholdValue": "1.27",
                                       "representation": "yellow",
                                       "text": "{0}{1}"
                                     },
                                     {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.22",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.21",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.20",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.19",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.18",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.17",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.16",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.15",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.14",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.18",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.19",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.20",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.21",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.22",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.23",
-                                      "representation": "yellow",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.24",
+                                      "operator": "<",
+                                      "thresholdValue": "1.28",
                                       "representation": "green",
                                       "text": "{0}{1}"
                                     },
                                     {
-                                      "operator": "Default",
-                                      "thresholdValue": {
-                                        "value": "null",
-                                        "representation": "null"
-                                      },
-                                      "text": "{0}{1}",
-                                      "tooltip": "null"
+                                      "operator": ">=",
+                                      "thresholdValue": "1.28",
+                                      "representation": "blue",
+                                      "text": "{0}{1}"
                                     },
                                     {
                                       "operator": "Default",
@@ -3047,27 +2940,25 @@
                               },
                               {
                                 "columnMatch": "Node Size",
-                                "formatter": 18,
+                                "formatter": 1
+                              },
+                              {
+                                "columnMatch": "OS Disk Size (GB)",
+                                "formatter": 8,
                                 "formatOptions": {
-                                  "thresholdsOptions": "colors",
-                                  "thresholdsGrid": [
-                                    {
-                                      "operator": "contains",
-                                      "thresholdValue": "_B",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "Default",
-                                      "thresholdValue": null,
-                                      "text": "{0}{1}"
-                                    }
-                                  ]
+                                  "min": 30,
+                                  "max": 500,
+                                  "palette": "redGreen"
                                 }
                               },
                               {
                                 "columnMatch": "Nodes",
-                                "formatter": 1
+                                "formatter": 8,
+                                "formatOptions": {
+                                  "min": 1,
+                                  "max": 100,
+                                  "palette": "redGreen"
+                                }
                               },
                               {
                                 "columnMatch": "Auto Scalling",
@@ -3077,25 +2968,19 @@
                                   "thresholdsGrid": [
                                     {
                                       "operator": "==",
-                                      "thresholdValue": "true",
-                                      "representation": "green",
-                                      "text": "Enabled"
-                                    },
-                                    {
-                                      "operator": "is Empty",
+                                      "thresholdValue": "false",
                                       "representation": "redBright",
-                                      "text": "Disabled"
+                                      "text": "{0}{1}"
                                     },
                                     {
                                       "operator": "==",
-                                      "thresholdValue": "false",
-                                      "representation": "redBright",
-                                      "text": "Disabled"
+                                      "thresholdValue": "true",
+                                      "representation": "green",
+                                      "text": "{0}{1}"
                                     },
                                     {
                                       "operator": "Default",
                                       "thresholdValue": null,
-                                      "representation": null,
                                       "text": "{0}{1}"
                                     }
                                   ]
@@ -3103,79 +2988,33 @@
                               },
                               {
                                 "columnMatch": "Min Nodes",
-                                "formatter": 1
+                                "formatter": 8,
+                                "formatOptions": {
+                                  "min": 1,
+                                  "max": 10,
+                                  "palette": "redGreen"
+                                }
                               },
                               {
                                 "columnMatch": "Max Nodes",
+                                "formatter": 8,
+                                "formatOptions": {
+                                  "min": 1,
+                                  "max": 100,
+                                  "palette": "redGreen"
+                                }
+                              },
+                              {
+                                "columnMatch": "Virtual Network",
+                                "formatter": 1
+                              },
+                              {
+                                "columnMatch": "VNET Subnet",
                                 "formatter": 1
                               },
                               {
                                 "columnMatch": "Orchestrator Version",
-                                "formatter": 18,
-                                "formatOptions": {
-                                  "thresholdsOptions": "colors",
-                                  "thresholdsGrid": [
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.17",
-                                      "representation": "yellow",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.16",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.15",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.14",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.18",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.19",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.20",
-                                      "representation": "yellow",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.21",
-                                      "representation": "green",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "startsWith",
-                                      "thresholdValue": "1.22",
-                                      "representation": "green",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "Default",
-                                      "thresholdValue": null,
-                                      "text": "{0}{1}"
-                                    }
-                                  ]
-                                }
+                                "formatter": 1
                               },
                               {
                                 "columnMatch": "Enable Node Public IP",
@@ -3185,33 +3024,13 @@
                                   "thresholdsGrid": [
                                     {
                                       "operator": "==",
-                                      "thresholdValue": "true",
-                                      "representation": "redBright",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "==",
                                       "thresholdValue": "false",
                                       "representation": "green",
                                       "text": "{0}{1}"
                                     },
                                     {
-                                      "operator": "Default",
-                                      "thresholdValue": null,
-                                      "text": "{0}{1}"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "columnMatch": "LoadBalancer Sku",
-                                "formatter": 18,
-                                "formatOptions": {
-                                  "thresholdsOptions": "colors",
-                                  "thresholdsGrid": [
-                                    {
                                       "operator": "==",
-                                      "thresholdValue": "Basic",
+                                      "thresholdValue": "true",
                                       "representation": "redBright",
                                       "text": "{0}{1}"
                                     },
@@ -3224,15 +3043,21 @@
                                 }
                               },
                               {
-                                "columnMatch": "Ingress Controller",
+                                "columnMatch": "Availability Zones Enabled",
                                 "formatter": 18,
                                 "formatOptions": {
                                   "thresholdsOptions": "colors",
                                   "thresholdsGrid": [
                                     {
                                       "operator": "==",
-                                      "thresholdValue": "false",
-                                      "representation": "yellow",
+                                      "thresholdValue": "Habilitado",
+                                      "representation": "green",
+                                      "text": "{0}{1}"
+                                    },
+                                    {
+                                      "operator": "==",
+                                      "thresholdValue": "Desabilitado",
+                                      "representation": "redBright",
                                       "text": "{0}{1}"
                                     },
                                     {
@@ -3244,20 +3069,26 @@
                                 }
                               }
                             ],
-                            "rowLimit": 10000,
-                            "filter": true
-                          }
+                            "rowLimit": 100,
+                            "filter": true,
+                            "labelSettings": [
+                              {
+                                "columnId": "Resource Group",
+                                "label": "Resource Group"
+                              },
+                              {
+                                "columnId": "Cluster Name",
+                                "label": "Cluster Name"
+                              }
+                            ]
+                          },
+                          "sortBy": []
                         },
                         "name": "query - 0"
                       }
                     ]
                   },
-                  "conditionalVisibility": {
-                    "parameterName": "SubTab",
-                    "comparison": "isEqualTo",
-                    "value": "Clusters"
-                  },
-                  "name": "AKS-Cluster"
+                  "name": "group - 15"
                 },
                 {
                   "type": 12,
@@ -3320,7 +3151,7 @@
                           ],
                           "timeContextFromParameter": "timerange",
                           "timeContext": {
-                            "durationMs": 7776000000
+                            "durationMs": 86400000
                           },
                           "metrics": [
                             {
@@ -3588,7 +3419,7 @@
                           ],
                           "timeContextFromParameter": "timerange",
                           "timeContext": {
-                            "durationMs": 7776000000
+                            "durationMs": 86400000
                           },
                           "metrics": [
                             {
@@ -22197,1372 +22028,6 @@
         "value": "AppService"
       },
       "name": "AppService"
-    },
-    {
-      "type": 12,
-      "content": {
-        "version": "NotebookGroup/1.0",
-        "groupType": "editable",
-        "items": [
-          {
-            "type": 11,
-            "content": {
-              "version": "LinkItem/1.0",
-              "style": "toolbar",
-              "links": [
-                {
-                  "id": "d80ce600-b288-4267-93cb-a01223365415",
-                  "cellValue": "TabMain",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Microsoft Defender ",
-                  "subTarget": "Defender",
-                  "postText": "Microsoft Defender for cloud",
-                  "style": "link",
-                  "icon": "Defense Evasion"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db28bf73278c",
-                  "cellValue": "TabMain",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Microsoft Sentinal",
-                  "subTarget": "Other",
-                  "postText": "Microsoft Sentinal",
-                  "style": "link",
-                  "icon": "Pre attack"
-                }
-              ]
-            },
-            "name": "links - 3",
-            "styleSettings": {
-              "margin": "10px",
-              "padding": "10px",
-              "showBorder": true,
-              "backgroundColor": "#f5f5f5"
-            }
-          },
-          {
-            "type": 1,
-            "content": {
-              "json": "## Microsoft Defender for Cloud\r\n<BR>\r\nMicrosoft Defender for Cloud is a cloud-native security solution that helps you protect your hybrid cloud workloads as well as your cloud-native workloads. It provides a single pane of glass to manage security across your hybrid cloud workloads, including Azure, AWS, and Google Cloud Platform.\r\n<BR>\r\nMore details: [Microsoft Defender for Cloud overview](https://docs.microsoft.com/en-us/azure/security-center/defender-for-cloud-overview)\r\n<BR>"
-            },
-            "name": "text - 2"
-          },
-          {
-            "type": 11,
-            "content": {
-              "version": "LinkItem/1.0",
-              "style": "toolbar",
-              "links": [
-                {
-                  "id": "d80ce600-b288-4267-93cb-a01223365415",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Eventos",
-                  "subTarget": "Eventos",
-                  "postText": "Defender - Eventos",
-                  "style": "link",
-                  "icon": "Persistence"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db28bf73278c",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Recomendações",
-                  "subTarget": "Recomendações",
-                  "postText": "Defender - Recomendações",
-                  "style": "link",
-                  "icon": "Pre attack"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Alertas",
-                  "subTarget": "Alertas",
-                  "postText": "Defender - Alertas",
-                  "style": "link",
-                  "icon": "Pre attack"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db28bf73278c",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Avisos",
-                  "subTarget": "Avisos",
-                  "postText": "Defender - Avisos",
-                  "style": "link",
-                  "icon": "Pre attack"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Vulnerabilidades",
-                  "subTarget": "Vulnerabilidades",
-                  "postText": "Defender - Vulnerabilidades",
-                  "style": "link",
-                  "icon": "Pre attack"
-                },
-                {
-                  "id": "f8592a17-308d-4e87-84ef-db",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Proteção de Ponto Final",
-                  "subTarget": "Proteção de Ponto Final",
-                  "postText": "Defender - Proteção de Ponto Final",
-                  "style": "link",
-                  "icon": "Pre attack"
-                },
-                {
-                  "id": "92f79805-3da9-4b22-b21c-88b2355cbfad",
-                  "cellValue": "SubTab",
-                  "linkTarget": "parameter",
-                  "linkLabel": "Price",
-                  "subTarget": "Price",
-                  "postText": "Defender - Price",
-                  "style": "link",
-                  "icon": "Pre attack"
-                }
-              ]
-            },
-            "name": "links - 1",
-            "styleSettings": {
-              "showBorder": true
-            }
-          },
-          {
-            "type": 12,
-            "content": {
-              "version": "NotebookGroup/1.0",
-              "groupType": "editable",
-              "items": [
-                {
-                  "type": 12,
-                  "content": {
-                    "version": "NotebookGroup/1.0",
-                    "groupType": "editable",
-                    "items": [
-                      {
-                        "type": 1,
-                        "content": {
-                          "json": "## Active security recommendations per subscription and cloud environment\r\n\r\nThis workbook leverages *First Evaluation Date* and *Status Change Date* time indicators to show active security recommendations created by Defender for Cloud, including the active time in days. It allows to filter for subscriptions, recommendation severity, and cloud environment, to narrow down results to the scope relevant for your examination.\r\n\r\nTo learn more about time indicators in Defender for Cloud, read [this article](https://techcommunity.microsoft.com/t5/microsoft-defender-for-cloud/time-indicators-in-microsoft-defender-for-cloud-assessments/ba-p/2343612)."
-                        },
-                        "name": "text - 2"
-                      },
-                      {
-                        "type": 9,
-                        "content": {
-                          "version": "KqlParameterItem/1.0",
-                          "crossComponentResources": [
-                            "{subscriptions}"
-                          ],
-                          "parameters": [
-                            {
-                              "id": "9d81f11a-6c64-4748-b477-dfe5e417ec18",
-                              "version": "KqlParameterItem/1.0",
-                              "name": "severity",
-                              "label": "Severity",
-                              "type": 2,
-                              "description": "Select the recommendation severity",
-                              "isRequired": true,
-                              "multiSelect": true,
-                              "quote": "'",
-                              "delimiter": ",",
-                              "typeSettings": {
-                                "additionalResourceOptions": [
-                                  "value::all"
-                                ],
-                                "showDefault": false
-                              },
-                              "jsonData": "[\n { \"value\": \"High\", \"label\": \"High\"},\n { \"value\": \"Medium\", \"label\": \"Medium\"},\n { \"value\": \"Low\", \"label\": \"Low\"}\n]",
-                              "defaultValue": "value::all",
-                              "value": [
-                                "value::all"
-                              ]
-                            },
-                            {
-                              "id": "a34fbec0-b40a-4cf2-9124-430bb6d6bd76",
-                              "version": "KqlParameterItem/1.0",
-                              "name": "environment",
-                              "label": "Cloud environment",
-                              "type": 2,
-                              "description": "Select the cloud environment",
-                              "isRequired": true,
-                              "multiSelect": true,
-                              "quote": "'",
-                              "delimiter": ",",
-                              "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| project environment = tostring(properties.resourceDetails.Source)\n| distinct environment",
-                              "crossComponentResources": [
-                                "{subscriptions}"
-                              ],
-                              "typeSettings": {
-                                "additionalResourceOptions": [
-                                  "value::all"
-                                ],
-                                "showDefault": false
-                              },
-                              "defaultValue": "value::all",
-                              "queryType": 1,
-                              "resourceType": "microsoft.resourcegraph/resources"
-                            },
-                            {
-                              "id": "fb25118f-8331-4368-b6ab-a2393d748e08",
-                              "version": "KqlParameterItem/1.0",
-                              "name": "info",
-                              "label": "Additional information",
-                              "type": 10,
-                              "description": "Show additional information for this workbook",
-                              "isRequired": true,
-                              "value": "Off",
-                              "typeSettings": {
-                                "additionalResourceOptions": []
-                              },
-                              "jsonData": "[\n { \"value\": \"On\", \"label\": \"On\"},\n { \"value\": \"Off\", \"label\": \"Off\"}\n]"
-                            }
-                          ],
-                          "style": "above",
-                          "queryType": 1,
-                          "resourceType": "microsoft.resourcegraph/resources"
-                        },
-                        "name": "parameters - 0"
-                      },
-                      {
-                        "type": 1,
-                        "content": {
-                          "json": "## How to use the parameters\r\n\r\n|Parameter|Description|\r\n|---|---|---|\r\n| Subscription(s) | Select one, several, or all subscriptions in your environment. The workbook will use this filter to display security recommendations according to the selected scope. |\r\n| Severity | Security recommendations are divided into low, medium, and high severity. Select any combination of severities you want to display in this workbook. |\r\n| Environment | Defender for Cloud offers Cloud Security Posture Management (CSPM) for Azure, AWS, and GCP. With this filter, you can select any combination of cloud platforms to show active (unhealthy) recommendations for. |\r\n| Additional information | Shows additional information about this workbook. |\r\n\r\n## Release notes\r\n\r\n|Version|Description|Date|\r\n|---|---|---|\r\n|v1.0|initial release|02/13/2023|\r\n|v1.1|updating the cloud environment filter to only offer existing environments for selection.|03/16/2023|"
-                        },
-                        "conditionalVisibility": {
-                          "parameterName": "info",
-                          "comparison": "isEqualTo",
-                          "value": "On"
-                        },
-                        "name": "releaseNotes"
-                      },
-                      {
-                        "type": 12,
-                        "content": {
-                          "version": "NotebookGroup/1.0",
-                          "groupType": "editable",
-                          "items": [
-                            {
-                              "type": 3,
-                              "content": {
-                                "version": "KqlItem/1.0",
-                                "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| extend firstEvaluationDate = todatetime(properties.status.firstEvaluationDate), statusChangeDate = todatetime(properties.status.statusChangeDate), severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project subscriptionId, resourceGroup,\n    resourceId = properties.resourceDetails.Id,\n    source = tostring(properties.resourceDetails.Source),\n    displayName = properties.displayName, \n    statusCode = properties.status.code,\n    severity, severityFilter, environmentFilter,\n    statusChangeDate, firstEvaluationDate,\n    overduePeriod = datetime_diff(\"day\", now(), statusChangeDate)\n| where severityFilter has severity and environmentFilter has source",
-                                "size": 1,
-                                "queryType": 1,
-                                "resourceType": "microsoft.resourcegraph/resources",
-                                "crossComponentResources": [
-                                  "{subscriptions}"
-                                ],
-                                "gridSettings": {
-                                  "formatters": [
-                                    {
-                                      "columnMatch": "subscriptionId",
-                                      "formatter": 15,
-                                      "formatOptions": {
-                                        "linkTarget": null,
-                                        "showIcon": true
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "Group",
-                                      "formatter": 1
-                                    }
-                                  ],
-                                  "rowLimit": 10000
-                                }
-                              },
-                              "conditionalVisibility": {
-                                "parameterName": "blank",
-                                "comparison": "isNotEqualTo"
-                              },
-                              "name": "activeRecommendations-query"
-                            },
-                            {
-                              "type": 3,
-                              "content": {
-                                "version": "KqlItem/1.0",
-                                "query": "securityresources\n| where type =~ \"microsoft.security/assessments\"\n| extend severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project severity, severityFilter, id, statusCode = properties.status.code, environment = tostring(properties.resourceDetails.Source), environmentFilter\n| where severityFilter has severity and environmentFilter has environment\n| summarize recommendations = dcount(id) by tostring(statusCode)",
-                                "size": 3,
-                                "title": "Total amount of recommendations by status",
-                                "queryType": 1,
-                                "resourceType": "microsoft.resourcegraph/resources",
-                                "crossComponentResources": [
-                                  "{subscriptions}"
-                                ],
-                                "visualization": "piechart",
-                                "chartSettings": {
-                                  "seriesLabelSettings": [
-                                    {
-                                      "seriesName": "NotApplicable",
-                                      "label": "Not applicable",
-                                      "color": "gray"
-                                    },
-                                    {
-                                      "seriesName": "Unhealthy",
-                                      "label": "",
-                                      "color": "redBright"
-                                    },
-                                    {
-                                      "seriesName": "Healthy",
-                                      "color": "green"
-                                    }
-                                  ]
-                                }
-                              },
-                              "customWidth": "33",
-                              "name": "total recommendations - query"
-                            },
-                            {
-                              "type": 3,
-                              "content": {
-                                "version": "KqlItem/1.0",
-                                "query": "securityresources\n| where type =~ \"microsoft.security/assessments\" and properties.status.code =~ \"Unhealthy\"\n| extend severityFilter = tostring(\"{severity}\"), severity = tostring(properties.metadata.severity), environmentFilter = tostring(\"{environment}\")\n| project severity, severityFilter, id, environmentFilter, environment = tostring(properties.resourceDetails.Source)\n| where severityFilter has severity and environmentFilter has environment\n| summarize recommendations = dcount(id) by severity",
-                                "size": 3,
-                                "title": "Amount of unhealthy recommendations by severity",
-                                "queryType": 1,
-                                "resourceType": "microsoft.resourcegraph/resources",
-                                "crossComponentResources": [
-                                  "{subscriptions}"
-                                ],
-                                "visualization": "piechart",
-                                "chartSettings": {
-                                  "seriesLabelSettings": [
-                                    {
-                                      "seriesName": "Low",
-                                      "color": "yellow"
-                                    },
-                                    {
-                                      "seriesName": "Medium",
-                                      "color": "orange"
-                                    },
-                                    {
-                                      "seriesName": "High",
-                                      "color": "redBright"
-                                    }
-                                  ]
-                                }
-                              },
-                              "customWidth": "33",
-                              "name": "active recommendations - query"
-                            },
-                            {
-                              "type": 3,
-                              "content": {
-                                "version": "KqlItem/1.0",
-                                "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\",\"mergeType\":\"table\",\"leftTable\":\"activeRecommendations-query\"}],\"projectRename\":[{\"originalName\":\"[activeRecommendations-query].subscriptionId\",\"mergedName\":\"subscriptionId\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].resourceGroup\",\"mergedName\":\"resourceGroup\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].resourceId\",\"mergedName\":\"resourceId\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].source\",\"mergedName\":\"source\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].displayName\",\"mergedName\":\"displayName\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].statusCode\",\"mergedName\":\"statusCode\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].severity\",\"mergedName\":\"severity\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].firstEvaluationDate\",\"mergedName\":\"firstEvaluationDate\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].statusChangeDate\",\"mergedName\":\"statusChangeDate\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[activeRecommendations-query].overduePeriod\",\"mergedName\":\"overduePeriod\",\"fromId\":\"1f2d0d58-95c2-4794-beac-19fbc26e407f\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"Total active recommendations\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"static\",\"resultVal\":\"Total active recommendations\"}}]},{\"originalName\":\"[activeRecommendations-query].severityFilter\",\"mergedName\":\"severityFilter\",\"fromId\":\"unknown\"},{\"originalName\":\"[activeRecommendations-query].environmentFilter\",\"mergedName\":\"environmentFilter\",\"fromId\":\"unknown\"},{\"originalName\":\"[activeRecommendations-query].environment\",\"mergedName\":\"environment\",\"fromId\":\"unknown\"}]}",
-                                "size": 0,
-                                "title": "Active security recommendations",
-                                "queryType": 7,
-                                "gridSettings": {
-                                  "formatters": [
-                                    {
-                                      "columnMatch": "$gen_group",
-                                      "formatter": 15,
-                                      "formatOptions": {
-                                        "linkTarget": "Resource",
-                                        "showIcon": true,
-                                        "customColumnWidthSetting": "51ch"
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "Subscription",
-                                      "formatter": 15,
-                                      "formatOptions": {
-                                        "linkTarget": "Resource",
-                                        "showIcon": true,
-                                        "customColumnWidthSetting": "51ch"
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "subscriptionId",
-                                      "formatter": 5,
-                                      "formatOptions": {
-                                        "linkTarget": "Resource"
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "resourceGroup",
-                                      "formatter": 14,
-                                      "formatOptions": {
-                                        "linkTarget": "Resource",
-                                        "showIcon": true
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "resourceId",
-                                      "formatter": 13,
-                                      "formatOptions": {
-                                        "linkTarget": "Resource",
-                                        "showIcon": true
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "source",
-                                      "formatter": 1
-                                    },
-                                    {
-                                      "columnMatch": "displayName",
-                                      "formatter": 1
-                                    },
-                                    {
-                                      "columnMatch": "statusCode",
-                                      "formatter": 5
-                                    },
-                                    {
-                                      "columnMatch": "severity",
-                                      "formatter": 18,
-                                      "formatOptions": {
-                                        "thresholdsOptions": "colors",
-                                        "thresholdsGrid": [
-                                          {
-                                            "operator": "==",
-                                            "thresholdValue": "High",
-                                            "representation": "redBright",
-                                            "text": "{0}{1}"
-                                          },
-                                          {
-                                            "operator": "==",
-                                            "thresholdValue": "Medium",
-                                            "representation": "orange",
-                                            "text": "{0}{1}"
-                                          },
-                                          {
-                                            "operator": "==",
-                                            "thresholdValue": "Low",
-                                            "representation": "yellow",
-                                            "text": "{0}{1}"
-                                          },
-                                          {
-                                            "operator": "Default",
-                                            "thresholdValue": null,
-                                            "text": "{0}{1}"
-                                          }
-                                        ]
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "firstEvaluationDate",
-                                      "formatter": 6
-                                    },
-                                    {
-                                      "columnMatch": "statusChangeDate",
-                                      "formatter": 6
-                                    },
-                                    {
-                                      "columnMatch": "overduePeriod",
-                                      "formatter": 8,
-                                      "formatOptions": {
-                                        "min": 0,
-                                        "max": 30,
-                                        "palette": "greenRed"
-                                      },
-                                      "numberFormat": {
-                                        "unit": 0,
-                                        "options": {
-                                          "style": "decimal",
-                                          "useGrouping": false,
-                                          "maximumFractionDigits": 0
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "columnMatch": "Total active recommendations",
-                                      "formatter": 5
-                                    },
-                                    {
-                                      "columnMatch": "severityFilter",
-                                      "formatter": 5
-                                    },
-                                    {
-                                      "columnMatch": "environmentFilter",
-                                      "formatter": 5
-                                    }
-                                  ],
-                                  "rowLimit": 10000,
-                                  "filter": true,
-                                  "hierarchySettings": {
-                                    "treeType": 1,
-                                    "groupBy": [
-                                      "Total active recommendations",
-                                      "subscriptionId"
-                                    ],
-                                    "expandTopLevel": true
-                                  },
-                                  "labelSettings": [
-                                    {
-                                      "columnId": "resourceGroup",
-                                      "label": "Resource Group"
-                                    },
-                                    {
-                                      "columnId": "resourceId",
-                                      "label": "Affected Resource"
-                                    },
-                                    {
-                                      "columnId": "source",
-                                      "label": "Cloud Environment"
-                                    },
-                                    {
-                                      "columnId": "displayName",
-                                      "label": "Recommendation Name"
-                                    },
-                                    {
-                                      "columnId": "statusCode",
-                                      "label": "Status"
-                                    },
-                                    {
-                                      "columnId": "severity",
-                                      "label": "Severity"
-                                    },
-                                    {
-                                      "columnId": "firstEvaluationDate",
-                                      "label": "First Evaluation Date"
-                                    },
-                                    {
-                                      "columnId": "statusChangeDate",
-                                      "label": "Status Change Date"
-                                    },
-                                    {
-                                      "columnId": "overduePeriod",
-                                      "label": "Unhealthy for [days]"
-                                    },
-                                    {
-                                      "columnId": "Total active recommendations",
-                                      "label": "Subscription"
-                                    }
-                                  ]
-                                }
-                              },
-                              "showPin": false,
-                              "name": "activeRecommendations-merge"
-                            }
-                          ]
-                        },
-                        "name": "Active recommendations group"
-                      }
-                    ]
-                  },
-                  "name": "Security group"
-                },
-                {
-                  "type": 1,
-                  "content": {
-                    "json": "## New workbook\n---\n\nWelcome to your new workbook.  This area will display text formatted as markdown.\n\n\nWe've included a basic analytics query to get you started. Use the `Edit` button below each section to configure it or add more sections."
-                  },
-                  "name": "text - 2"
-                },
-                {
-                  "type": 3,
-                  "content": {
-                    "version": "KqlItem/1.0",
-                    "query": "union withsource=_TableName *\n| summarize Count=count() by _TableName\n| render barchart",
-                    "size": 1,
-                    "timeContextFromParameter": "timerange",
-                    "queryType": 0,
-                    "resourceType": "microsoft.resources/subscriptions",
-                    "crossComponentResources": [
-                      "{LogAnalyticsWorkspace}"
-                    ]
-                  },
-                  "name": "query - 2"
-                }
-              ]
-            },
-            "conditionalVisibility": {
-              "parameterName": "SubTab",
-              "comparison": "isEqualTo",
-              "value": "Eventos"
-            },
-            "name": "Defender-eventos-group"
-          },
-          {
-            "type": 12,
-            "content": {
-              "version": "NotebookGroup/1.0",
-              "groupType": "editable",
-              "items": [
-                {
-                  "type": 1,
-                  "content": {
-                    "json": "# Microsoft Defender for Containers - Price estimation dashboard\n\nMicrosoft Defender for Containers is a new offering that consolidates two existing Microsoft Defender for Cloud meters:\n* Microsoft Defender for Kubernetes\n* Microsoft Defender for Container Registries\n\nIn addition, Microsoft Defender for Servers is no longer required for host-level protection of Kubernetes clusters as relevant node-level protection capabilities are added to the new plan, alongside new capabilities:\n\n* **New Kubernetes native deployment** - We developed a DaemonSet, which is deployed and maintained on the Kubernetes control plane. The new DaemonSet is responsible for all data collection events, supports any Kubernetes (Azure & non-Azure) and removes our current dependency on the Log Analytics agent. The DaemonSet gives customers visibility and management capabilities via Kubernetes tooling, and will resolve ongoing customer issues and challenges with the current VM extension model. It is integrated into Azure Kubernetes Service (AKS) as a Security profile and into Azure Arc connected clusters as a cluster extension for both on-prem and multi-cloud scenarios.\n* **Advanced Threat Protection** - additional Kubernetes-aware AI analytics and anomaly detection based on process signals. A full list of alerts is published in our [Reference table for all security alerts in Microsoft Defender for Cloud](https://docs.microsoft.com/azure/defender-for-cloud/alerts-reference?WT.mc_id=Portal-fx#alerts-k8scluster).\n* **Runtime visibility of vulnerabilities** - A new Microsoft Defender for Cloud recommendation that monitors Kubernetes clusters will surface a list of running images with vulnerabilities based on vulnerability assessment scans powered by Qualys. This new recommendation can help customers focus on the most critical vulnerabilities that expose their runtime environments to security threats and attacks.\n\nThis workbook considers all Kubernetes clusters with/without Microsoft Defender for Containers enabled across your selected subscriptions. The estimated price is based on the amount of average nodes in an AKS cluster, or on the number of CPU cores per Azure Arc-enabled Kubernetes cluster."
-                  },
-                  "name": "text - 2"
-                },
-                {
-                  "type": 1,
-                  "content": {
-                    "json": "### Select the scope\nPlease make sure to select subscriptions and Kubernetes clusters for estimated cost to be shown.",
-                    "style": "info"
-                  },
-                  "name": "text - 5"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "crossComponentResources": [
-                      "{subscription}"
-                    ],
-                    "parameters": [
-                      {
-                        "id": "b6105110-5d2c-4e0f-a30e-409751f8e87e",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subscription",
-                        "label": "Azure subscription",
-                        "type": 6,
-                        "isRequired": true,
-                        "multiSelect": true,
-                        "quote": "'",
-                        "delimiter": ",",
-                        "value": [
-                          "value::all"
-                        ],
-                        "typeSettings": {
-                          "additionalResourceOptions": [
-                            "value::all"
-                          ],
-                          "includeAll": true
-                        },
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      },
-                      {
-                        "id": "e253600a-7d3a-4b69-b888-3ebe70a30927",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "kubernetesCluster",
-                        "label": "Kubernetes Cluster",
-                        "type": 5,
-                        "isRequired": true,
-                        "multiSelect": true,
-                        "quote": "'",
-                        "delimiter": ",",
-                        "query": "where type =~ 'microsoft.containerservice/managedclusters' or type =~ 'microsoft.kubernetes/connectedclusters'\n",
-                        "crossComponentResources": [
-                          "{subscription}"
-                        ],
-                        "value": [
-                          "value::all"
-                        ],
-                        "typeSettings": {
-                          "additionalResourceOptions": [
-                            "value::all"
-                          ],
-                          "showDefault": false
-                        },
-                        "queryType": 1,
-                        "resourceType": "microsoft.resourcegraph/resources"
-                      }
-                    ],
-                    "style": "pills",
-                    "queryType": 1,
-                    "resourceType": "microsoft.resourcegraph/resources"
-                  },
-                  "name": "parameters - 1"
-                },
-                {
-                  "type": 1,
-                  "content": {
-                    "json": "### Cost estimation is shown in the tables below \nEstimation below is based on a retail price of [$7 USD per vCore](https://azure.microsoft.com/en-us/pricing/calculator/) for the average amount of cores used during the last 30 days. In case this telemetry is not available, the calculation is done based on the amount of cores currently used in an AKS cluster.\nFor Azure Arc-enabled Kubernetes, estimation is based on the amount of CPU cores configured in the cluster resource.",
-                    "style": "info"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "kubernetesCluster",
-                    "comparison": "isNotEqualTo"
-                  },
-                  "name": "text - 3"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "866020ca-cd3e-41f2-8ad5-836f2ce05a9b",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "environment",
-                        "label": "Environment",
-                        "type": 10,
-                        "isRequired": true,
-                        "value": "AKS",
-                        "typeSettings": {
-                          "additionalResourceOptions": [],
-                          "showDefault": false
-                        },
-                        "jsonData": "[\n { \"value\": \"AKS\", \"label\": \"Azure Kubernetes Service (AKS)\"},\n { \"value\": \"Arc\", \"label\": \"Azure Arc-enabled Kubernetes\"}\n]",
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "name": "parameters - 6"
-                },
-                {
-                  "type": 12,
-                  "content": {
-                    "version": "NotebookGroup/1.0",
-                    "groupType": "editable",
-                    "items": [
-                      {
-                        "type": 3,
-                        "content": {
-                          "version": "KqlItem/1.0",
-                          "query": "resources\n| where type =~ \"microsoft.containerservice/managedclusters\"\n| extend machineType = tostring(properties.agentPoolProfiles[0].vmSize), \n        nodesCount = toint(properties.agentPoolProfiles[0]['count']),\n        powerState = tostring(properties.agentPoolProfiles[0].powerState.code)\n| extend vCoresPerMachine = toint(extract_all(@\"(\\d+)\", machineType)[0])\n| extend coresTotal = vCoresPerMachine * nodesCount\n| extend estimatedMonthlyCost = coresTotal * 7",
-                          "size": 4,
-                          "queryType": 1,
-                          "resourceType": "microsoft.resourcegraph/resources",
-                          "crossComponentResources": [
-                            "{subscription}"
-                          ],
-                          "gridSettings": {
-                            "formatters": [
-                              {
-                                "columnMatch": "name",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "tenantId",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "kind",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "managedBy",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "sku",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "plan",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "properties",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "tags",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "identity",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "zones",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "extendedLocation",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "powerState",
-                                "formatter": 18,
-                                "formatOptions": {
-                                  "thresholdsOptions": "icons",
-                                  "thresholdsGrid": [
-                                    {
-                                      "operator": "==",
-                                      "thresholdValue": "Stopped",
-                                      "representation": "stopped",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "==",
-                                      "thresholdValue": "Running",
-                                      "representation": "success",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "Default",
-                                      "thresholdValue": null,
-                                      "representation": "pending",
-                                      "text": "{0}{1}"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "columnMatch": "minMachineCount",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "maxMachineCount",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "minMonthlyCost",
-                                "formatter": 8,
-                                "formatOptions": {
-                                  "min": 0,
-                                  "palette": "green"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "maxMonthlyCost",
-                                "formatter": 8,
-                                "formatOptions": {
-                                  "min": 0,
-                                  "palette": "redBright"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency",
-                                    "useGrouping": false
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "estimatedMonthlyCost",
-                                "formatter": 8,
-                                "formatOptions": {
-                                  "palette": "greenRed"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                }
-                              }
-                            ],
-                            "labelSettings": [
-                              {
-                                "columnId": "id",
-                                "label": "Cluster Name"
-                              }
-                            ]
-                          }
-                        },
-                        "customWidth": "10",
-                        "conditionalVisibility": {
-                          "parameterName": "{blank}",
-                          "comparison": "isEqualTo",
-                          "value": "1"
-                        },
-                        "name": "query - 1"
-                      },
-                      {
-                        "type": 10,
-                        "content": {
-                          "chartId": "workbook1f9b49dd-b092-4a6f-8586-687d220b2c9c",
-                          "version": "MetricsItem/2.0",
-                          "size": 4,
-                          "chartType": 0,
-                          "resourceType": "microsoft.containerservice/managedclusters",
-                          "metricScope": 0,
-                          "resourceParameter": "kubernetesCluster",
-                          "resourceIds": [
-                            "{kubernetesCluster}"
-                          ],
-                          "timeContext": {
-                            "durationMs": 2592000000
-                          },
-                          "metrics": [
-                            {
-                              "namespace": "microsoft.containerservice/managedclusters",
-                              "metric": "microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores",
-                              "aggregation": 4
-                            }
-                          ],
-                          "gridSettings": {
-                            "formatters": [
-                              {
-                                "columnMatch": "Subscription",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "Name",
-                                "formatter": 13,
-                                "formatOptions": {
-                                  "linkTarget": "Resource",
-                                  "showIcon": true
-                                }
-                              },
-                              {
-                                "columnMatch": "microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores",
-                                "formatter": 1,
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "style": "decimal",
-                                    "maximumFractionDigits": 2
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "Metric",
-                                "formatter": 1
-                              },
-                              {
-                                "columnMatch": "Value",
-                                "formatter": 1
-                              }
-                            ],
-                            "rowLimit": 10000,
-                            "labelSettings": [
-                              {
-                                "columnId": "microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores",
-                                "label": "nodesCount (Average)"
-                              },
-                              {
-                                "columnId": "microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores Timeline",
-                                "label": "Total number of available cpu cores in a managed cluster Timeline"
-                              }
-                            ]
-                          }
-                        },
-                        "customWidth": "10",
-                        "conditionalVisibility": {
-                          "parameterName": "{blank}",
-                          "comparison": "isEqualTo",
-                          "value": "1"
-                        },
-                        "name": "metric - 2"
-                      },
-                      {
-                        "type": 1,
-                        "content": {
-                          "json": "## Azure Kubernetes Service (AKS) clusters\n\nThis table provides an estimation for Microsoft Defender for Containers cost depending on the number CPU cores on worker nodes used in average during the last 30 days. If no average telemetry is available, estimation is calculated based on the number of nodes currently running in a cluster."
-                        },
-                        "name": "text - 3"
-                      },
-                      {
-                        "type": 3,
-                        "content": {
-                          "version": "KqlItem/1.0",
-                          "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\",\"mergeType\":\"innerunique\",\"leftTable\":\"metric - 2\",\"rightTable\":\"query - 1\",\"leftColumn\":\"Name\",\"rightColumn\":\"id\"}],\"projectRename\":[{\"originalName\":\"[Added column]\",\"mergedName\":\"Total estimated Defender cost\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"'Total estimated Defender cost'\"}}]},{\"originalName\":\"[metric - 2].Subscription\",\"mergedName\":\"Subscription\",\"fromId\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\"},{\"originalName\":\"[query - 1].id\",\"mergedName\":\"Cluster Name\",\"fromId\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\"},{\"originalName\":\"[query - 1].machineType\",\"mergedName\":\"machineType\",\"fromId\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\"},{\"originalName\":\"[query - 1].powerState\",\"mergedName\":\"powerState\",\"fromId\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\"},{\"originalName\":\"[query - 1].coresTotal\",\"mergedName\":\"coresTotal\",\"fromId\":\"dcc7ad6e-4539-45c3-b63f-d151da8c0259\"},{\"originalName\":\"[metric - 2].microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores\",\"mergedName\":\"averageCores\",\"fromId\":\"unknown\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"freeScans\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"leftOperand\":\"nodesCount (Average)\",\"operator\":\"isNotNull\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"nodesCount (Average)\\\"] * [\\\"vCoresPerMachine\\\"] * 20\"}},{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"coresTotal\\\"] * 20\"}}]},{\"originalName\":\"[Added column]\",\"mergedName\":\"estimatedAverageCost\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"leftOperand\":\"averageCores\",\"operator\":\"isNotNull\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"averageCores\\\"] * 7\"}},{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"coresTotal\\\"] * 7\"}}]},{\"originalName\":\"[metric - 2].Name\"},{\"originalName\":\"[metric - 2].insights.container/nodes--nodesCount Timeline\"},{\"originalName\":\"[query - 1].name\"},{\"originalName\":\"[query - 1].tenantId\"},{\"originalName\":\"[query - 1].kind\"},{\"originalName\":\"[query - 1].resourceGroup\"},{\"originalName\":\"[query - 1].subscriptionId\"},{\"originalName\":\"[query - 1].managedBy\"},{\"originalName\":\"[query - 1].sku\"},{\"originalName\":\"[query - 1].plan\"},{\"originalName\":\"[query - 1].properties\"},{\"originalName\":\"[query - 1].tags\"},{\"originalName\":\"[query - 1].identity\"},{\"originalName\":\"[query - 1].zones\"},{\"originalName\":\"[query - 1].extendedLocation\"},{\"originalName\":\"[metric - 2].microsoft.containerservice/managedclusters-Nodes-kube_node_status_condition Timeline\"},{\"originalName\":\"[metric - 2].microsoft.containerservice/managedclusters-Nodes-kube_node_status_condition\"},{\"originalName\":\"[metric - 2].Timeline\"},{\"originalName\":\"[metric - 2].Segment\"},{\"originalName\":\"[metric - 2].Segment Field\"},{\"originalName\":\"[metric - 2].Aggregation\"},{\"originalName\":\"[metric - 2].Metric ID\"},{\"originalName\":\"[metric - 2].Metric\"},{\"originalName\":\"[metric - 2].Namespace\"},{\"originalName\":\"[metric - 2].Value\"},{\"originalName\":\"[metric - 2].microsoft.containerservice/managedclusters-Nodes-kube_node_status_allocatable_cpu_cores Timeline\"},{\"originalName\":\"[query - 1].minMonthlyCost\"},{\"originalName\":\"[query - 1].maxMonthlyCost\"},{\"originalName\":\"[query - 1].minMachineCount\"},{\"originalName\":\"[query - 1].maxMachineCount\"},{\"originalName\":\"[query - 1].estimatedMonthlyCost\"},{\"originalName\":\"[query - 1].vCoresPerMachine\"},{\"originalName\":\"[metric - 2].insights.container/nodes--nodesCount\"},{\"originalName\":\"[query - 1].nodesCount\"},{\"originalName\":\"[query - 1].physicalCoresCount\"},{\"originalName\":\"[query - 1].location\"},{\"originalName\":\"[query - 1].type\"}]}",
-                          "size": 3,
-                          "noDataMessage": "No Kubernetes service resources are selected. Please select Kubernetes Cluster.",
-                          "queryType": 7,
-                          "gridSettings": {
-                            "formatters": [
-                              {
-                                "columnMatch": "$gen_group",
-                                "formatter": 15,
-                                "formatOptions": {
-                                  "linkTarget": "Resource",
-                                  "showIcon": true,
-                                  "customColumnWidthSetting": "45ch"
-                                }
-                              },
-                              {
-                                "columnMatch": "Total estimated Defender cost",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "aggregation": "Sum"
-                                }
-                              },
-                              {
-                                "columnMatch": "Subscription",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "powerState",
-                                "formatter": 18,
-                                "formatOptions": {
-                                  "thresholdsOptions": "icons",
-                                  "thresholdsGrid": [
-                                    {
-                                      "operator": "==",
-                                      "thresholdValue": "Running",
-                                      "representation": "success",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "==",
-                                      "thresholdValue": "Stopped",
-                                      "representation": "stopped",
-                                      "text": "{0}{1}"
-                                    },
-                                    {
-                                      "operator": "Default",
-                                      "thresholdValue": null,
-                                      "representation": "pending",
-                                      "text": "{0}{1}"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "columnMatch": "coresTotal",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "22.28ch"
-                                }
-                              },
-                              {
-                                "columnMatch": "averageCores",
-                                "formatter": 0,
-                                "formatOptions": {
-                                  "aggregation": "Sum"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "style": "decimal",
-                                    "maximumFractionDigits": 2
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "freeScans",
-                                "formatter": 3,
-                                "formatOptions": {
-                                  "palette": "blue",
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "35ch"
-                                },
-                                "numberFormat": {
-                                  "unit": 17,
-                                  "options": {
-                                    "style": "decimal",
-                                    "maximumFractionDigits": 0
-                                  }
-                                },
-                                "tooltipFormat": {
-                                  "tooltip": "Number of container images included for scanning based on the amount of vCores per Kubernetes cluster."
-                                }
-                              },
-                              {
-                                "columnMatch": "estimatedAverageCost",
-                                "formatter": 3,
-                                "formatOptions": {
-                                  "palette": "yellow",
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "35ch"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                },
-                                "tooltipFormat": {
-                                  "tooltip": "Estimated monthly Defender cost based on the average node count within the last 30 days. In case there is no node count telemetry available, average cost is calculated based on the current number of nodes running in a cluster."
-                                }
-                              },
-                              {
-                                "columnMatch": "type",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "location",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "nodesCount",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "18.4ch"
-                                }
-                              },
-                              {
-                                "columnMatch": "nodesCount (Average)",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "19ch"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "style": "decimal"
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "vCoresPerMachine",
-                                "formatter": 5
-                              },
-                              {
-                                "columnMatch": "estimatedMonthlyCost",
-                                "formatter": 5,
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "physicalCoresCount",
-                                "formatter": 0,
-                                "formatOptions": {
-                                  "aggregation": "Sum"
-                                }
-                              }
-                            ],
-                            "hierarchySettings": {
-                              "treeType": 1,
-                              "groupBy": [
-                                "Total estimated Defender cost",
-                                "Subscription"
-                              ],
-                              "expandTopLevel": true
-                            },
-                            "labelSettings": [
-                              {
-                                "columnId": "Total estimated Defender cost",
-                                "label": "Subscription"
-                              },
-                              {
-                                "columnId": "machineType",
-                                "label": "Azure VM size"
-                              },
-                              {
-                                "columnId": "powerState",
-                                "label": "Power State"
-                              },
-                              {
-                                "columnId": "averageCores",
-                                "label": "vCores (average)"
-                              },
-                              {
-                                "columnId": "freeScans",
-                                "label": "Container image scans included"
-                              },
-                              {
-                                "columnId": "estimatedAverageCost",
-                                "label": "Estimated monthly Defender cost"
-                              }
-                            ]
-                          },
-                          "sortBy": []
-                        },
-                        "name": "query - 3"
-                      }
-                    ]
-                  },
-                  "conditionalVisibilities": [
-                    {
-                      "parameterName": "kubernetesCluster",
-                      "comparison": "isNotEqualTo"
-                    },
-                    {
-                      "parameterName": "environment",
-                      "comparison": "isEqualTo",
-                      "value": "AKS"
-                    }
-                  ],
-                  "name": "group - 4",
-                  "styleSettings": {
-                    "showBorder": true
-                  }
-                },
-                {
-                  "type": 12,
-                  "content": {
-                    "version": "NotebookGroup/1.0",
-                    "groupType": "editable",
-                    "items": [
-                      {
-                        "type": 3,
-                        "content": {
-                          "version": "KqlItem/1.0",
-                          "query": "resources\n| where type == \"microsoft.kubernetes/connectedclusters\" and \"{kubernetesCluster:name}\" contains name\n| extend physicalCoresCount = properties.totalCoreCount\n| extend estimatedMonthlyCost = physicalCoresCount * 7\n| project clusterName = id, subscriptionId, toint(physicalCoresCount), estimatedMonthlyCost",
-                          "size": 1,
-                          "queryType": 1,
-                          "resourceType": "microsoft.resourcegraph/resources",
-                          "crossComponentResources": [
-                            "{subscription}"
-                          ],
-                          "visualization": "table"
-                        },
-                        "customWidth": "20",
-                        "conditionalVisibility": {
-                          "parameterName": "{blank}",
-                          "comparison": "isEqualTo",
-                          "value": "1"
-                        },
-                        "name": "query - 4"
-                      },
-                      {
-                        "type": 1,
-                        "content": {
-                          "json": "## Azure Arc-enabled Kubernetes clusters\nThe table below shows a cost estimation for Microsoft Defender for Containers based on the number of cores that are configured in a non-AKS Kubernetes cluster, connected through Azure Arc."
-                        },
-                        "name": "text - 0"
-                      },
-                      {
-                        "type": 3,
-                        "content": {
-                          "version": "KqlItem/1.0",
-                          "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"74cbf62a-9aa6-4194-8709-7b741a3c8047\",\"mergeType\":\"table\",\"leftTable\":\"query - 4\"}],\"projectRename\":[{\"originalName\":\"[query - 4].clusterName\",\"mergedName\":\"clusterName\",\"fromId\":\"74cbf62a-9aa6-4194-8709-7b741a3c8047\"},{\"originalName\":\"[query - 4].subscriptionId\",\"mergedName\":\"subscriptionId\",\"fromId\":\"74cbf62a-9aa6-4194-8709-7b741a3c8047\"},{\"originalName\":\"[query - 4].physicalCoresCount\",\"mergedName\":\"physicalCoresCount\",\"fromId\":\"74cbf62a-9aa6-4194-8709-7b741a3c8047\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"freeScans\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"[\\\"physicalCoresCount\\\"] * 20\"}}]},{\"originalName\":\"[query - 4].estimatedMonthlyCost\",\"mergedName\":\"estimatedMonthlyCost\",\"fromId\":\"74cbf62a-9aa6-4194-8709-7b741a3c8047\"},{\"originalName\":\"[Added column]\",\"mergedName\":\"Total estimated Defender cost\",\"fromId\":null,\"isNewItem\":true,\"newItemData\":[{\"criteriaContext\":{\"operator\":\"Default\",\"rightValType\":\"column\",\"resultValType\":\"expression\",\"resultVal\":\"'Total estimated Defender cost'\"}}]}]}",
-                          "size": 3,
-                          "noDataMessage": "No Azure-Arc connected Kubernetes clusters found or selected.",
-                          "queryType": 7,
-                          "gridSettings": {
-                            "formatters": [
-                              {
-                                "columnMatch": "$gen_group",
-                                "formatter": 15,
-                                "formatOptions": {
-                                  "linkTarget": "Resource",
-                                  "showIcon": true
-                                }
-                              },
-                              {
-                                "columnMatch": "subscriptionId",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "linkTarget": "Resource"
-                                }
-                              },
-                              {
-                                "columnMatch": "physicalCoresCount",
-                                "formatter": 0,
-                                "formatOptions": {
-                                  "aggregation": "Sum"
-                                }
-                              },
-                              {
-                                "columnMatch": "freeScans",
-                                "formatter": 3,
-                                "formatOptions": {
-                                  "palette": "blue",
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "230px"
-                                },
-                                "numberFormat": {
-                                  "unit": 17,
-                                  "options": {
-                                    "style": "decimal",
-                                    "maximumFractionDigits": 0
-                                  }
-                                },
-                                "tooltipFormat": {
-                                  "tooltip": "Number of container images included for scanning based on the amount of vCores per Kubernetes cluster."
-                                }
-                              },
-                              {
-                                "columnMatch": "estimatedMonthlyCost",
-                                "formatter": 3,
-                                "formatOptions": {
-                                  "palette": "yellow",
-                                  "aggregation": "Sum",
-                                  "customColumnWidthSetting": "270px"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                }
-                              },
-                              {
-                                "columnMatch": "Total estimated Defender cost",
-                                "formatter": 5,
-                                "formatOptions": {
-                                  "aggregation": "Sum"
-                                },
-                                "numberFormat": {
-                                  "unit": 0,
-                                  "options": {
-                                    "currency": "USD",
-                                    "style": "currency"
-                                  }
-                                },
-                                "tooltipFormat": {
-                                  "tooltip": "Estimated monthly Defender cost based on the number of cores a non-AKS cluster."
-                                }
-                              }
-                            ],
-                            "hierarchySettings": {
-                              "treeType": 1,
-                              "groupBy": [
-                                "Total estimated Defender cost",
-                                "subscriptionId"
-                              ],
-                              "expandTopLevel": true
-                            },
-                            "labelSettings": [
-                              {
-                                "columnId": "clusterName",
-                                "label": "Cluster Name"
-                              },
-                              {
-                                "columnId": "physicalCoresCount",
-                                "label": "Number of vCores"
-                              },
-                              {
-                                "columnId": "freeScans",
-                                "label": "Container image scans included"
-                              },
-                              {
-                                "columnId": "estimatedMonthlyCost",
-                                "label": "Estimated monthly Defender cost"
-                              },
-                              {
-                                "columnId": "Total estimated Defender cost",
-                                "label": "Subscription"
-                              }
-                            ]
-                          }
-                        },
-                        "showPin": false,
-                        "name": "query - 5"
-                      }
-                    ]
-                  },
-                  "conditionalVisibilities": [
-                    {
-                      "parameterName": "kubernetesCluster",
-                      "comparison": "isNotEqualTo"
-                    },
-                    {
-                      "parameterName": "environment",
-                      "comparison": "isEqualTo",
-                      "value": "Arc"
-                    }
-                  ],
-                  "name": "non-AKS group",
-                  "styleSettings": {
-                    "showBorder": true
-                  }
-                }
-              ]
-            },
-            "conditionalVisibility": {
-              "parameterName": "SubTab",
-              "comparison": "isEqualTo",
-              "value": "Price"
-            },
-            "name": "grupo - 4"
-          }
-        ]
-      },
-      "conditionalVisibility": {
-        "parameterName": "TabMain",
-        "comparison": "isEqualTo",
-        "value": "Security"
-      },
-      "name": "group - 11"
     }
   ],
   "fallbackResourceIds": [
