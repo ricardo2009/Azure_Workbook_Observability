@@ -3088,6 +3088,11 @@
                       }
                     ]
                   },
+                  "conditionalVisibility": {
+                    "parameterName": "SubTab",
+                    "comparison": "isEqualTo",
+                    "value": "Clusters"
+                  },
                   "name": "group - 15"
                 },
                 {
@@ -3151,7 +3156,7 @@
                           ],
                           "timeContextFromParameter": "timerange",
                           "timeContext": {
-                            "durationMs": 86400000
+                            "durationMs": 900000
                           },
                           "metrics": [
                             {
@@ -3419,7 +3424,7 @@
                           ],
                           "timeContextFromParameter": "timerange",
                           "timeContext": {
-                            "durationMs": 86400000
+                            "durationMs": 900000
                           },
                           "metrics": [
                             {
@@ -5413,13 +5418,13 @@
                             {
                               "id": "da525d76-f06f-4a51-89b8-7d812b9849ee",
                               "version": "KqlParameterItem/1.0",
-                              "name": "timeRange",
+                              "name": "{TimeRange}",
                               "label": "Time Range",
                               "type": 4,
                               "description": "Filter data by time range",
                               "isRequired": true,
                               "value": {
-                                "durationMs": 21600000
+                                "durationMs": 259200000
                               },
                               "typeSettings": {
                                 "selectableValues": [
@@ -5485,7 +5490,7 @@
                                 ],
                                 "showDefault": false
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::1"
                             },
                             {
@@ -5515,7 +5520,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "b7f008ce-38a9-499a-85e9-a01707c1776c",
@@ -5547,7 +5552,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "48b419dd-90e8-4a11-845c-b8ddc29cc90d",
@@ -5572,7 +5577,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::all",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
@@ -5608,7 +5613,7 @@
                               "timeContext": {
                                 "durationMs": 0
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "5b229ffe-f333-4d17-b009-5c9a87e383db",
@@ -5638,7 +5643,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::1",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
@@ -5674,7 +5679,7 @@
                               "timeContext": {
                                 "durationMs": 0
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "05801920-18dd-4542-83d3-8aaac1cd6e6c",
@@ -5697,7 +5702,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::1",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
@@ -5726,7 +5731,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::all",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
@@ -5760,7 +5765,7 @@
                               "timeContext": {
                                 "durationMs": 2592000000
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "4b87c00b-8340-4591-b7f9-85c881c6ccf3",
@@ -5786,7 +5791,7 @@
                               "timeContext": {
                                 "durationMs": 14400000
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "defaultValue": "value::all",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
@@ -5822,7 +5827,7 @@
                               "timeContext": {
                                 "durationMs": 0
                               },
-                              "timeContextFromParameter": "timeRange"
+                              "timeContextFromParameter": "{TimeRange}"
                             },
                             {
                               "id": "b40d1932-7d50-40fe-8efc-492902071b7e",
@@ -5838,7 +5843,7 @@
                               "timeContext": {
                                 "durationMs": 0
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
                             },
@@ -5856,7 +5861,7 @@
                               "timeContext": {
                                 "durationMs": 0
                               },
-                              "timeContextFromParameter": "timeRange",
+                              "timeContextFromParameter": "{TimeRange}",
                               "queryType": 0,
                               "resourceType": "{resourceType}"
                             }
